@@ -21,13 +21,13 @@ public class MyTests {
 
     }
     @Test
-public void getName(){
+    public void getName(){
         User person = new User(11, "andre",11);
         String ResName = person.getName();
         assertEquals("andre", ResName);
-
+        //assertEquals("NULL", ResName);  //Teste com input -> NUll
     }
-@Test
+    @Test
     public void IDUser(){
         User id = new User(2,"andre",23);
 
@@ -43,7 +43,7 @@ public void getName(){
 
         BikeRentalSystem user = new BikeRentalSystem(1);
 
-        user.registerUser(2,"andre",1);
+        user.registerUser(2, "andre", 1);
 
 
         Assertions.assertThrows(UserDoesNotExists.class, () -> user.getBicycle(1, 1, 1));
@@ -51,15 +51,28 @@ public void getName(){
         Assertions.assertThrows(UserDoesNotExists.class, () -> user.getBicycle(1, -1, 1));
 
 
-
     }
+
     @Test
-    public void criarDoisComMesmoID() {
+    public void verifyCredit() throws UserAlreadyExists {
+
+        int idUser = 1;
+        int rentalFee = 1;
+        BikeRentalSystem user = new BikeRentalSystem(rentalFee);
+        user.registerUser(idUser, "andre", 1);
+        user.addCredit(idUser, 10);
+
+
+        Assertions.assertTrue(user.verifyCredit(idUser));
+    }
+
+    @Test
+    public void verificaSeExisteID() {
 
         User id = new User(30,"andre",1);
         Assertions.assertThrows(UserAlreadyExists.class, () -> user.registerUser(30, "andre", 1));
 
-        //assertEquals(id.getIDUser(), 2);
+
 
     }
 
